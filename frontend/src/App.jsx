@@ -10,18 +10,18 @@ function App() {
   }, []);
 
   const fetchPasswords = async () => {
-    const response = await axios.get('http://localhost:5000/passwords');
+    const response = await axios.get('http://localhost:3000/passwords');
     setPasswords(response.data);
   };
 
   const addPassword = async () => {
-    await axios.post('http://localhost:5000/passwords', { password: newPassword });
+    await axios.post('http://localhost:3000/passwords', { password: newPassword });
     setNewPassword('');
     fetchPasswords();
   };
 
   const deletePassword = async (id) => {
-    await axios.delete(`http://localhost:5000/passwords/${id}`);
+    await axios.delete(`http://localhost:3000/passwords/${id}`);
     fetchPasswords();
   };
 
