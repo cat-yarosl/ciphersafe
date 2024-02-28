@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/passwords', (req, res) => {
-  db.all('SELECT id, password FROM passwords', [], (err, rows) => {
+  db.all('SELECT id, website, username, password FROM passwords', [], (err, rows) => {
     if (err) {
       res.status(400).json({ error: err.message });
       return;
@@ -20,20 +20,22 @@ app.get('/passwords', (req, res) => {
 });
 
 app.post('/passwords', (req, res) => {
-  bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+  const { website, username, password } = req.body;
+  bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
     }
-    db.run('INSERT INTO passwords (password) VALUES (?)', [hash], function(err) {
+    db.run('INSERT INTO passwords (website, username, password) VALUES (?, ?, ?)', [website, username, hash], function(err) {
       if (err) {
         res.status(400).json({ error: err.message });
         return;
       }
-      res.status(201).json({ id: this.lastID, password: req.body.password });
+      res.status(201).json({ id: this.lastID, website, username, password });
     });
   });
 });
+
 
 app.delete('/passwords/:id', (req, res) => {
   db.run('DELETE FROM passwords WHERE id = ?', req.params.id, function(err) {
