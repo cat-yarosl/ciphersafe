@@ -2,42 +2,52 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [passwords, setPasswords] = useState([]);
-  const [newPassword, setNewPassword] = useState('');
+  const [credentials, setCredentials] = useState([]);
+  const [newCredential, setNewCredential] = useState('');
 
   useEffect(() => {
-    fetchPasswords();
+    fetchCredentials();
   }, []);
 
-  const fetchPasswords = async () => {
-    const response = await axios.get('http://localhost:3000/passwords');
-    setPasswords(response.data);
+  const fetchCredentials = async () => {
+    const response = await axios.get('http://localhost:3000/credentials');
+    setCredentials(response.data);
   };
 
-  const addPassword = async () => {
-    await axios.post('http://localhost:3000/passwords', { password: newPassword });
-    setNewPassword('');
-    fetchPasswords();
+  const addCredential = async () => {
+    await axios.post('http://localhost:3000/passwords', { credential: newCredential });
+    setNewCredential('');
+    fetchCredentials();
   };
 
-  const deletePassword = async (id) => {
+  const deleteCredential = async (id) => {
     await axios.delete(`http://localhost:3000/passwords/${id}`);
-    fetchPasswords();
+    fetchCredentials();
   };
 
   return (
     <div>
       <input 
         type="text" 
+        value={newWebsite}
+        onChange={(e) => setNewWebsite(e.target.value)} 
+      />
+      <input 
+        type="text" 
+        value={newUsername}
+        onChange={(e) => setNewUsername(e.target.value)} 
+      />
+      <input 
+        type="text" 
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)} 
       />
-      <button onClick={addPassword}>Add Password</button>
+      <button onClick={addCredential}>Add Password</button>
       <ul>
-        {passwords.map(password => (
-          <li key={password.id}>
-            {password.password} 
-            <button onClick={() => deletePassword(password.id)}>Delete</button>
+        {credentials.map(credential => (
+          <li key={credential.id}>
+            {credential.credential} 
+            <button onClick={() => deleteCredential(credential.id)}>Delete</button>
           </li>
         ))}
       </ul>
