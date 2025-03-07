@@ -5,6 +5,7 @@ import Header from './components/Header';
 import PasswordForm from './components/password/PasswordForm';
 import PasswordList from './components/password/PasswordList';
 import SearchBar from './components/search/SearchBar';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [passwords, setPasswords] = useState<Password[]>([]);
@@ -41,13 +42,26 @@ function App() {
   );
 
   return (
-    <div className="container mx-auto max-w-120 mt-4 p-4 bg-gray-100 max-h-200">
+    <div className="
+      container 
+      mx-auto 
+      max-w-120 
+      mt-4 
+      p-4 
+      bg-gray-100 
+      max-h-200
+    ">
       <Header 
         text="Password Manager" 
         subText="Store your passwords securely" 
-        imgSrc='../public/lock.png'
+        imgSrc='/lock.png'
       />
-      <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="
+        bg-white 
+        p-6 
+        rounded-lg 
+        shadow-lg
+      ">
         <PasswordForm 
           newWebsite={newWebsite}
           setNewWebsite={setNewWebsite}
@@ -57,9 +71,16 @@ function App() {
           setNewPassword={setNewPassword}
           addPassword={handleAddPassword}
         />
-        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <PasswordList passwords={filteredPasswords} deletePassword={handleDeletePassword} />
+        <SearchBar 
+          searchQuery={searchQuery} 
+          setSearchQuery={setSearchQuery} 
+        />
+        <PasswordList 
+          passwords={filteredPasswords} 
+          deletePassword={handleDeletePassword} 
+        />
       </div>
+      <ToastContainer />
     </div>
   );
 };

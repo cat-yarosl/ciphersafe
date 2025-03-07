@@ -13,15 +13,34 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery }) =>
   };
 
   return (
-    <div className="relative mb-4">
+    <div className="
+      relative 
+      mb-4
+    ">
       <input
         type="text"
         placeholder="Search"
         value={searchQuery}
         onChange={handleSearchChange}
-        className="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
-      />
-      <FontAwesomeIcon icon={faSearch} className="h-5 w-5 text-gray-500 absolute right-3 top-1/2 transform -translate-y-1/2" />
+        className="
+          border 
+          p-2 
+          rounded 
+          w-full 
+          focus:outline-none 
+          focus:ring-2 
+          focus:ring-blue-500 
+          pr-10
+      "/>
+      <FontAwesomeIcon icon={faSearch} className="
+        h-5 
+        w-5 
+        text-gray-500 
+        absolute right-3 
+        top-1/2 
+        transform 
+        -translate-y-1/2
+      "/>
     </div>
   );
 };
