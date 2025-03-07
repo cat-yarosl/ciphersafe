@@ -1,13 +1,25 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./passwordManager.db');
+const path = require('path');
 
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS passwords (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    website TEXT NOT NULL,
-    username TEXT NOT NULL,
-    password TEXT NOT NULL
-  )`);
+// Define the path to the database file
+const dbPath = path.resolve(__dirname, 'passwords.db');
+
+// Create a new SQLite database connection
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error('Error opening database:', err.message);
+  } else {
+    console.log('Connected to the SQLite database.');
+    // Create the passwords table if it doesn't exist
+    db.run(`
+      CREATE TABLE IF NOT EXISTS passwords (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        website TEXT,
+        username TEXT,
+        password TEXT
+      )
+    `);
+  }
 });
 
 module.exports = db;

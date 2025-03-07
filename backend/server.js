@@ -1,41 +1,26 @@
 const express = require('express');
 const cors = require('cors');
-const db = require('./db'); // Import the database configuration
+const morgan = require('morgan');
+const dotenv = require('dotenv');
+const passwordRoutes = require('./routes/passwords');
 const app = express();
-const port = 3000;
+
+// Load environment variables
+dotenv.config();
+
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'));
 
-app.get('/passwords', (req, res) => {
-  db.all('SELECT id, website, username, password FROM passwords', [], (err, rows) => {
-    if (err) {
-      res.status(400).json({ error: err.message });
-      return;
-    }
-    res.json(rows);
-  });
-});
+// Use the password routes
+app.use('/passwords', passwordRoutes);
 
-app.post('/passwords', (req, res) => {
-  const { website, username, password } = req.body;
-  db.run('INSERT INTO passwords (website, username, password) VALUES (?, ?, ?)', [website, username, password], function(err) {
-    if (err) {
-      res.status(400).json({ error: err.message });
-      return;
-    }
-    res.status(201).json({ id: this.lastID, website, username, password });
-  });
-});
-
-app.delete('/passwords/:id', (req, res) => {
-  db.run('DELETE FROM passwords WHERE id = ?', req.params.id, function(err) {
-    if (err) {
-      res.status(400).json({ error: err.message });
-      return;
-    }
-    res.status(204).send();
-  });
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
 });
 
 app.listen(port, () => {
