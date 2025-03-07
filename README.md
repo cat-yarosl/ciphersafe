@@ -53,14 +53,7 @@ npm install
 
 ### Environment Variables
 
-Create a `.env` file in the `frontend` and `backend` directories with the following content:
-
-#### Frontend `.env`
-
-```properties
-REACT_APP_API_URL=http://localhost:3000/passwords
-REACT_APP_SECRET_KEY=your-secret-key
-```
+Create a `.env` file in the `backend` directory with the following content:
 
 #### Backend `.env`
 
@@ -112,10 +105,9 @@ password-manager
 │   │   │   ├── search
 │   │   │   │   └── SearchBar.tsx
 │   │   ├── types.ts
+|   |   |   └──index.ts
 │   │   ├── App.tsx
-│   │   ├── index.tsx
-│   │   └── .env
-│   ├── .env
+│   │   └── main.tsx
 │   └── package.json
 ```
 
