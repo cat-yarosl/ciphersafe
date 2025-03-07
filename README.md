@@ -1,6 +1,6 @@
-# Password Manager
+# Cipher Safe
 
-Password Manager is a web application that allows users to securely store, manage, and search for their passwords. The application uses encryption to protect passwords and provides a user-friendly interface for managing them.
+Cipher Safe is a web application that allows users to securely store, manage, and search for their passwords. The application uses encryption to protect passwords and provides a user-friendly interface for managing them.
 
 ## Features
 
