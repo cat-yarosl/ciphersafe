@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Password } from '../../types';
+import PasswordCard from './PasswordCard';
 
 interface PasswordListProps {
   passwords: Password[];
@@ -7,21 +8,25 @@ interface PasswordListProps {
 }
 
 const PasswordList: React.FC<PasswordListProps> = ({ passwords, deletePassword }) => {
+  const [visiblePasswords, setVisiblePasswords] = useState<{ [key: string]: boolean }>({});
+
+  const togglePasswordVisibility = (id: string) => {
+    setVisiblePasswords(prevState => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
+
   return (
     <div className="space-y-4">
       {passwords.map((password) => (
-        <div key={password.id} className="flex justify-between items-center p-4 border rounded-lg shadow-sm">
-          <div>
-            <p className="font-semibold">{password.website}</p>
-            <p>{password.username}</p>
-          </div>
-          <button
-            onClick={() => deletePassword(password.id)}
-            className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
-          >
-            Delete
-          </button>
-        </div>
+        <PasswordCard
+          key={password.id}
+          password={password}
+          deletePassword={deletePassword}
+          isVisible={visiblePasswords[password.id]}
+          toggleVisibility={() => togglePasswordVisibility(password.id)}
+        />
       ))}
     </div>
   );
