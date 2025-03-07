@@ -1,40 +1,144 @@
-## Available Scripts
+# Password Manager
 
-In the project directory, you can run:
+Password Manager is a web application that allows users to securely store, manage, and search for their passwords. The application uses encryption to protect passwords and provides a user-friendly interface for managing them.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Add new passwords with website, username, and password fields
+- View, search, and delete stored passwords
+- Password strength indicator
+- Copy passwords to clipboard
+- Responsive design using Tailwind CSS
+- Toast notifications for user feedback
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
 
-### node server.js
+- React
+- TypeScript
+- Tailwind CSS
+- Axios
+- CryptoJS
+- React Toastify
+- Express (backend)
+- SQLite (database)
 
-Runs the backend of the project
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js and npm installed on your machine
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+git clone https://github.com/your-username/password-manager.git
+cd password-manager
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install dependencies for the frontend:
 
-### `npm run eject`
+```sh
+cd frontend
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Install dependencies for the backend:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+cd ../backend
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Environment Variables
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Create a `.env` file in the `frontend` and `backend` directories with the following content:
+
+#### Frontend `.env`
+
+```properties
+REACT_APP_API_URL=http://localhost:3000/passwords
+REACT_APP_SECRET_KEY=your-secret-key
+```
+
+#### Backend `.env`
+
+```properties
+PORT=3000
+```
+
+### Running the Application
+
+1. Start the backend server:
+
+```sh
+cd backend
+npm start
+```
+
+2. Start the frontend development server:
+
+```sh
+cd ../frontend
+npm start
+```
+
+The application should now be running at `http://localhost:5173`.
+
+## Project Structure
+
+```
+password-manager
+├── backend
+│   ├── db.js
+│   ├── routes
+│   │   └── passwords.js
+│   ├── server.js
+│   ├── .env
+│   └── package.json
+├── frontend
+│   ├── public
+│   ├── src
+│   │   ├── api
+│   │   │   └── passwords
+│   │   │       └── route.tsx
+│   │   ├── components
+│   │   │   ├── Header.tsx
+│   │   │   ├── password
+│   │   │   │   ├── PasswordForm.tsx
+│   │   │   │   ├── PasswordList.tsx
+│   │   │   │   └── PasswordCard.tsx
+│   │   │   ├── search
+│   │   │   │   └── SearchBar.tsx
+│   │   ├── types.ts
+│   │   ├── App.tsx
+│   │   ├── index.tsx
+│   │   └── .env
+│   ├── .env
+│   └── package.json
+```
+
+## Usage
+
+1. Open the application in your browser.
+2. Use the form to add new passwords by entering the website, username, and password.
+3. View the list of stored passwords.
+4. Use the search bar to filter passwords by website or username.
+5. Click the "X" button to delete a password.
+6. Click the eye icon to toggle password visibility.
+7. Click the copy icon to copy the password to the clipboard.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Axios](https://axios-http.com/)
+- [CryptoJS](https://cryptojs.gitbook.io/docs/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/)
+- [Express](https://expressjs.com/)
+- [SQLite](https://www.sqlite.org/)
