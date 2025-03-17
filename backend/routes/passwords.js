@@ -1,30 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Import the database configuration
+const passwordsService = require('../services/passwordService');
 
 router.get('/', (req, res) => {
-  db.all('SELECT id, website, username, password FROM passwords', [], (err, rows) => {
+  passwordsService.getAllPasswords((err, rows) => {
     if (err) {
       res.status(400).json({ error: err.message });
       return;
     }
+    
     res.json(rows);
   });
 });
 
 router.post('/', (req, res) => {
   const { website, username, password } = req.body;
-  db.run('INSERT INTO passwords (website, username, password) VALUES (?, ?, ?)', [website, username, password], function(err) {
+  
+  passwordsService.createPassword(website, username, password, (err, id) => {
     if (err) {
       res.status(400).json({ error: err.message });
       return;
     }
-    res.status(201).json({ id: this.lastID, website, username, password });
+    res.status(201).json({ id, website, username, password });
   });
 });
 
 router.delete('/:id', (req, res) => {
-  db.run('DELETE FROM passwords WHERE id = ?', req.params.id, function(err) {
+  passwordsService.deletePassword(req.params.id, (err) => {
     if (err) {
       res.status(400).json({ error: err.message });
       return;
