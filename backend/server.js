@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
-const passwordRoutes = require('./routes/passwords');
+const passwordRoutes = require('./routes/password');
+const authRoutes = require('./routes/auth');
 const app = express();
 
 // Load environment variables
@@ -16,6 +17,7 @@ app.use(morgan('dev'));
 
 // Use the password routes
 app.use('/passwords', passwordRoutes);
+app.use('/auth', authRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

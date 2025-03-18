@@ -14,7 +14,17 @@ const db = new sqlite3.Database(dbPath, (err) => {
     db.run(`
       CREATE TABLE IF NOT EXISTS passwords (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
         website TEXT,
+        username TEXT,
+        password TEXT
+      )
+    `);
+
+    // Create the users table if it doesn't exist
+    db.run(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY,
         username TEXT,
         password TEXT
       )
