@@ -26,7 +26,7 @@ const login = (username, password, callback) => {
       }
 
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-      callback(null, token);
+      callback(null, { "userId": user.id, "token": token });
     });
   });
 };

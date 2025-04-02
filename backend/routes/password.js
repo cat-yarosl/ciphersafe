@@ -3,9 +3,9 @@ const router = express.Router();
 const passwordService = require('../services/passwordService');
 
 router.get('/', (req, res) => {
-  const { user_id } = req.body;
-
-  passwordService.getAllPasswords(user_id, (err, rows) => {
+  const userId  = req.query.userId;
+  
+  passwordService.getAllPasswords(userId, (err, rows) => {
     if (err) {
       res.status(400).json({ error: err.message });
       return;
@@ -16,9 +16,9 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { user_id, website, username, password } = req.body;
+  const { userId, website, username, password } = req.body;
   
-  passwordService.createPassword(user_id, website, username, password, (err, id) => {
+  passwordService.createPassword(userId, website, username, password, (err, id) => {
     if (err) {
       res.status(400).json({ error: err.message });
       return;

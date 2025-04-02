@@ -6,12 +6,16 @@ const userService = require('../services/userService');
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  authService.login(username, password, (err, token) => {
+  authService.login(username, password, (err, result) => {
     if (err) {
       res.status(400).json({ error: err.message });
       return;
     }
-    res.json({ token });
+    
+    res.json({
+      id: result.userId,
+      token: result.token,
+    });
   });
 });
 

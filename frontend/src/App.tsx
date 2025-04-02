@@ -14,30 +14,40 @@ function App() {
   const [newUsername, setNewUsername] = useState('');
   const [newWebsite, setNewWebsite] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    if (isLoggedIn) {
-      loadPasswords();
-    }
+    if (isLoggedIn && userId) 
+        loadPasswords(userId);
   }, [isLoggedIn]);
 
-  const loadPasswords = async () => {
-    const data = await fetchPasswords();
+  const loadPasswords = async (userId: string) => {
+    if (!userId) 
+      return;
+
+    const data = await fetchPasswords(userId);
     setPasswords(data);
   };
 
   const handleAddPassword = async () => {
-    await addPassword(newPassword, newUsername, newWebsite);
+    if (!userId) 
+      return;
+
+    await addPassword(userId, newPassword, newUsername, newWebsite);
     setNewPassword('');
     setNewUsername('');
     setNewWebsite('');
-    loadPasswords();
+    loadPasswords(userId);
   };
 
   const handleDeletePassword = async (id: string): Promise<void> => {
     await deletePassword(id);
-    loadPasswords();
+
+    if (!userId) 
+      return;
+
+    loadPasswords(userId);
   };
 
   const handleLogout = () => {
@@ -51,7 +61,7 @@ function App() {
 
   // Render login portal if the user is not logged in
   if (!isLoggedIn) {
-    return <Page setIsLoggedIn={setIsLoggedIn} />;
+    return <Page setIsLoggedIn={setIsLoggedIn} setUserId={setUserId} />;
   }
 
   return (

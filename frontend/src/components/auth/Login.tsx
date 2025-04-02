@@ -6,18 +6,20 @@ import { toast } from 'react-toastify';
 interface LoginProps {
   toggleForm: () => void;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setUserId: (userId: string) => void; 
 }
 
-const Login: React.FC<LoginProps> = ({ toggleForm, setIsLoggedIn }) => {
+const Login: React.FC<LoginProps> = ({ toggleForm, setIsLoggedIn, setUserId }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false); // State for 'Remember Me'
+  const [rememberMe, setRememberMe] = useState(false); 
 
   const handleLogin = async () => {
-    // Replace this with your actual login logic
     if (username && password) {
-      await login(username, password);
-      setIsLoggedIn(true); // Log the user in
+      const { id, token } = await login(username, password);
+      console.log(token);
+      setIsLoggedIn(true); 
+      setUserId(id);
     } else {
       toast.error('All fields are required');
     }

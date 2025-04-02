@@ -7,9 +7,10 @@ import { ToastContainer } from "react-toastify";
 
 interface PageProps {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setUserId: (userId: string) => void;
 }
 
-const Page: React.FC<PageProps> = ({setIsLoggedIn}) => {
+const Page: React.FC<PageProps> = ({setIsLoggedIn, setUserId}) => {
   const [isLogin, setIsLogin] = useState(true); // State to toggle between Login and Register
 
   const toggleForm = () => {
@@ -33,7 +34,7 @@ const Page: React.FC<PageProps> = ({setIsLoggedIn}) => {
             imgSrc='/lock.png'
           />
       {isLogin ?
-        <Login toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn}/> :
+        <Login toggleForm={toggleForm} setIsLoggedIn={setIsLoggedIn} setUserId={setUserId}/> :
         <Register toggleForm={toggleForm}/>
       }
       <ToastContainer />

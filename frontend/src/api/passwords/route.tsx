@@ -20,9 +20,9 @@ const decryptPassword = (encryptedPassword: string): string => {
   return bytes.toString(CryptoJS.enc.Utf8);
 };
 
-export const fetchPasswords = async (): Promise<Password[]> => {
+export const fetchPasswords = async ( userId: string ): Promise<Password[]> => {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(API_URL, { params: { userId } });
     const decryptedPasswords = response.data.map((password: Password) => ({
       ...password,
       password: decryptPassword(password.password),
@@ -34,10 +34,10 @@ export const fetchPasswords = async (): Promise<Password[]> => {
   }
 };
 
-export const addPassword = async (password: string, username: string, website: string): Promise<void> => {
+export const addPassword = async (userId: string, password: string, username: string, website: string): Promise<void> => {
   try {
     const encryptedPassword = encryptPassword(password);
-    await axios.post(API_URL, { password: encryptedPassword, username, website });
+    await axios.post(API_URL, { userId, password: encryptedPassword, username, website });
   } catch (error) {
     console.error('Error adding password:', error);
     throw error;
