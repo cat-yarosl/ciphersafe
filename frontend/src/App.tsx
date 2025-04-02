@@ -77,7 +77,7 @@ function App() {
         rounded-lg
       '>
         <Header 
-          text='Password Manager' 
+          text='Cipher Safe' 
           subText='Store your passwords securely' 
           imgSrc='/lock.png'
         />
